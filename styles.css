@@ -36,6 +36,7 @@ main {
   font-family: "Orbitron", sans-serif;
   font-optical-sizing: auto;
   font-weight: 900;
+  letter-spacing: 2px;
 }
 .calculator button:nth-of-type(1) {
   grid-column: 1/3;
