@@ -94,7 +94,7 @@ export default function Calculator() {
           return;
         }
         if (displayValue === "0" && storedOperator === "÷") {
-          return (displayValue = "Cannot divide by 0");
+          return (displayValue = "Error:Infinity");
         }
         displayValue = calculate(firstNumber, displayValue, storedOperator);
         storedOperator = null;

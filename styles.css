@@ -8,7 +8,7 @@ main {
 }
 .calculator {
   display: grid;
-  grid-template-columns: repeat(4, 80px);
+  grid-template-columns: repeat(4, 85px);
   grid-template-rows: repeat(7, 50px);
   padding: 20px;
   border-radius: 5px;
