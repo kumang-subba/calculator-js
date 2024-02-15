@@ -1,6 +1,6 @@
 export default function Calculator() {
   const NUMBERS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-  const operators = ["+", "-", "×", "÷"];
+  const OPERATORS = ["+", "-", "×", "÷"];
   const MAX_DIGITS = 8;
 
   let displayValue = "";
@@ -33,6 +33,8 @@ export default function Calculator() {
       } else if (num !== 0 && (Math.abs(num) >= 1e9 || Math.abs(num) < 1e-9)) {
         displayValue = num.toExponential(MAX_DIGITS - 4);
       }
+    } else {
+      displayValue = displayValue.slice(0, MAX_DIGITS);
     }
     displayValue = displayValue.toString();
     return displayValue;
@@ -48,14 +50,21 @@ export default function Calculator() {
       if (newOperator === "-") displayValue += newOperator;
       return;
     }
+    if (waitingForSecondOperand) {
+      return (storedOperator = newOperator);
+    }
     if (storedOperator) {
-      displayValue = calculate(firstNumber, displayValue, storedOperator);
+      displayValue = performCalculation(
+        firstNumber,
+        displayValue,
+        storedOperator
+      );
     }
     storedOperator = newOperator;
     waitingForSecondOperand = true;
     firstNumber = displayValue;
   }
-  function calculate(num1, num2, operator) {
+  function performCalculation(num1, num2, operator) {
     num1 = convertToNumber(num1);
     num2 = convertToNumber(num2);
     switch (operator) {
@@ -72,6 +81,29 @@ export default function Calculator() {
   function backspace() {
     displayValue = displayValue.slice(0, -1);
   }
+  function handleDecimal() {
+    if (!isDecimal()) {
+      if (!displayValue || waitingForSecondOperand) {
+        displayValue = "0.";
+      } else {
+        displayValue += ".";
+      }
+    }
+  }
+  function calculate() {
+    if (!displayValue || !firstNumber || !storedOperator) {
+      return;
+    }
+    if (displayValue === "0" && storedOperator === "÷") {
+      return (displayValue = "Error:Infinity");
+    }
+    displayValue = performCalculation(
+      firstNumber,
+      displayValue,
+      storedOperator
+    );
+    storedOperator = null;
+  }
   function buttonFunctions(button) {
     switch (button) {
       case "C":
@@ -81,39 +113,23 @@ export default function Calculator() {
         backspace();
         break;
       case ".":
-        if (!isDecimal()) {
-          if (!displayValue || waitingForSecondOperand) {
-            displayValue = "0.";
-          } else {
-            displayValue += button;
-          }
-        }
+        handleDecimal();
         break;
       case "=":
-        if (!displayValue || !firstNumber || !storedOperator) {
-          return;
-        }
-        if (displayValue === "0" && storedOperator === "÷") {
-          return (displayValue = "Error:Infinity");
-        }
-        displayValue = calculate(firstNumber, displayValue, storedOperator);
-        storedOperator = null;
+        calculate();
         break;
     }
   }
   this.handleButtons = function (button) {
     if (NUMBERS.includes(button)) {
-      if (displayValue.length >= MAX_DIGITS) return;
+      if (displayValue.length >= MAX_DIGITS && !waitingForSecondOperand) return;
       numberButton(button);
     } else {
-      if (operators.includes(button)) {
+      if (OPERATORS.includes(button)) {
         handleOperator(button);
       } else {
         buttonFunctions(button);
       }
     }
-    console.log(displayValue);
-    console.log(firstNumber);
-    console.log(storedOperator);
   };
 }
