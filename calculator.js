@@ -1,7 +1,7 @@
 export default function Calculator() {
   const NUMBERS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
   const OPERATORS = ["+", "-", "×", "÷"];
-  const MAX_DIGITS = 8;
+  const MAX_DIGITS = 9;
 
   let displayValue = "";
   let storedOperator = null;
@@ -22,7 +22,7 @@ export default function Calculator() {
   function convertToNumber(string) {
     return !isNaN(string) ? +string : null;
   }
-  this.updateScreen = function () {
+  this.getDisplayValue = function () {
     const num = parseFloat(displayValue);
     if (!isNaN(num)) {
       if (num % 1 !== 0) {
@@ -33,10 +33,9 @@ export default function Calculator() {
       } else if (num !== 0 && (Math.abs(num) >= 1e9 || Math.abs(num) < 1e-9)) {
         displayValue = num.toExponential(MAX_DIGITS - 4);
       }
-    } else {
-      displayValue = displayValue.slice(0, MAX_DIGITS);
-    }
+    } 
     displayValue = displayValue.toString();
+    displayValue = displayValue.slice(0, MAX_DIGITS);
     return displayValue;
   };
   function reset() {
@@ -82,6 +81,7 @@ export default function Calculator() {
     displayValue = displayValue.slice(0, -1);
   }
   function handleDecimal() {
+    if (displayValue.length >= MAX_DIGITS) return;
     if (!isDecimal()) {
       if (!displayValue || waitingForSecondOperand) {
         displayValue = "0.";
