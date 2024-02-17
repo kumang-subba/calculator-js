@@ -103,7 +103,7 @@ export default function Calculator(maxDigit) {
   }
 
   function calculate() {
-    if (!displayValue || !firstNumber || !storedOperator) {
+    if (!displayValue || !firstNumber || !storedOperator || waitingForSecondOperand) {
       return;
     }
     if (displayValue === "0" && storedOperator === "/") {
