@@ -1,6 +1,6 @@
 # Calculator in Plain Javascript
 
-## Preview link 
+## Preview link 🔗
 https://kumang-subba.github.io/calculator-js/
 
 ## Overview
