@@ -1,12 +1,12 @@
-# Calculator in Plain Javascript
+# Calculator in Plain Javascript 🖩
 
-## Preview link 
+## Preview link 🔗
 https://kumang-subba.github.io/calculator-js/
 
 ## Overview
 Calculator with Vanilla JavaScript. Built without the use of eval() (The only correct way to do it!)
 
-###  Tech Used 🖥️
+###  🖥️Tech Used In this Project
 <img src="https://user-images.githubusercontent.com/25181517/192158954-f88b5814-d510-4564-b285-dff7d6400dad.png" width="80"> <img src="https://user-images.githubusercontent.com/25181517/183898674-75a4a1b1-f960-4ea9-abcb-637170a00a75.png" width="80"> <img src="https://user-images.githubusercontent.com/25181517/117447155-6a868a00-af3d-11eb-9cfe-245df15c9f3f.png" width="80">
 
 
