@@ -1,4 +1,4 @@
-# Calculator in Plain Javascript
+# Calculator in Plain Javascript 🖩
 
 ## Preview link 🔗
 https://kumang-subba.github.io/calculator-js/
