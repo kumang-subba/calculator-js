@@ -1,17 +1,20 @@
-export default function Calculator() {
+export default function Calculator(maxDigit) {
   const NUMBERS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
   const OPERATORS = ["+", "-", "*", "/"];
-  const MAX_DIGITS = 9;
 
   let displayValue = "";
   let storedOperator = null;
   let waitingForSecondOperand = false;
   let firstNumber = undefined;
+  let MAX_DIGITS = maxDigit;
 
   function isDecimal() {
     return displayValue.includes(".");
   }
 
+  this.updateMaxDigits = (newMaxDigit) => {
+    MAX_DIGITS = newMaxDigit;
+  };
   function numberButton(numberString) {
     if (!displayValue) return (displayValue = numberString);
     if (waitingForSecondOperand) {

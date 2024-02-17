@@ -1,6 +1,21 @@
 import Calculator from "./calculator.js";
 const screen = document.querySelector(".screen");
-const newCalculator = new Calculator();
+const newCalculator = new Calculator(getMaxDigit());
+function getMaxDigit() {
+  return window.matchMedia("(max-width: 320px)").matches
+    ? 5
+    : window.matchMedia("(max-width: 425px)").matches
+    ? 6
+    : 9;
+}
+
+window.addEventListener("resize", () => {
+  if (getMaxDigit() !== newCalculator.MAX_DIGITS) {
+    newCalculator.updateMaxDigits(getMaxDigit());
+  }
+  screenValue = newCalculator.getDisplayValue();
+  updateScreen();
+});
 
 const allButtons = document.querySelectorAll("button");
 let screenValue = "";
@@ -14,7 +29,7 @@ const SPECIAL_KEYS_MAP = {
   "-": "-",
 };
 const handleButton = (button) => {
-  console.log(button)
+  console.log(button);
   newCalculator.handleButtons(button);
   screenValue = newCalculator.getDisplayValue();
   updateScreen();
@@ -35,7 +50,7 @@ function updateScreen() {
     screen.appendChild(digitSpan);
   }
 }
-document.addEventListener("keydown", (e) =>{ 
-  e.preventDefault()
-  handleButton(e.key)
+document.addEventListener("keydown", (e) => {
+  e.preventDefault();
+  handleButton(e.key);
 });

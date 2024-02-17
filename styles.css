@@ -102,3 +102,17 @@ main {
     }
   }
 }
+
+@media (max-width: 425px) {
+  .calculator {
+    grid-template-columns: repeat(4, 60px);
+    grid-template-rows: repeat(7, 40px);
+  } 
+}
+@media (max-width: 320px) {
+  .calculator {
+    grid-template-columns: repeat(4, 50px);
+    grid-template-rows: repeat(7, 35px);
+  }
+  
+}
