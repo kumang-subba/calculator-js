@@ -29,7 +29,6 @@ const SPECIAL_KEYS_MAP = {
   "-": "-",
 };
 const handleButton = (button) => {
-  console.log(button);
   newCalculator.handleButtons(button);
   screenValue = newCalculator.getDisplayValue();
   updateScreen();

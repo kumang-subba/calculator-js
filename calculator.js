@@ -139,6 +139,7 @@ export default function Calculator(maxDigit) {
   this.handleButtons = function (button) {
     if (NUMBERS.includes(button)) {
       if (displayValue.length >= MAX_DIGITS && !waitingForSecondOperand) return;
+      if (button === "0" && displayValue === "0") return;
       numberButton(button);
     } else {
       if (OPERATORS.includes(button)) {
