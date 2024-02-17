@@ -36,7 +36,7 @@ export default function Calculator() {
       } else if (num !== 0 && (Math.abs(num) >= 1e9 || Math.abs(num) < 1e-9)) {
         displayValue = num.toExponential(MAX_DIGITS - 4);
       }
-    } 
+    }
     displayValue = displayValue.toString();
     displayValue = displayValue.slice(0, MAX_DIGITS);
     return displayValue;
@@ -116,16 +116,16 @@ export default function Calculator() {
 
   function buttonFunctions(button) {
     switch (button) {
-      case "C":
+      case "Escape":
         reset();
         break;
-      case "⌫":
+      case "Backspace":
         backspace();
         break;
       case ".":
         handleDecimal();
         break;
-      case "=":
+      case "Enter":
         calculate();
         break;
     }
