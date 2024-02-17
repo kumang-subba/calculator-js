@@ -14,6 +14,7 @@ const SPECIAL_KEYS_MAP = {
   "-": "-",
 };
 const handleButton = (button) => {
+  console.log(button)
   newCalculator.handleButtons(button);
   screenValue = newCalculator.getDisplayValue();
   updateScreen();
@@ -34,4 +35,7 @@ function updateScreen() {
     screen.appendChild(digitSpan);
   }
 }
-document.addEventListener("keydown", (e) => handleButton(e.key));
+document.addEventListener("keydown", (e) =>{ 
+  e.preventDefault()
+  handleButton(e.key)
+});

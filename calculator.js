@@ -103,7 +103,7 @@ export default function Calculator() {
     if (!displayValue || !firstNumber || !storedOperator) {
       return;
     }
-    if (displayValue === "0" && storedOperator === "÷") {
+    if (displayValue === "0" && storedOperator === "/") {
       return (displayValue = "Error:Infinity");
     }
     displayValue = performCalculation(
@@ -128,6 +128,8 @@ export default function Calculator() {
       case "Enter":
         calculate();
         break;
+      default:
+        return;
     }
   }
 
