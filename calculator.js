@@ -1,6 +1,6 @@
 export default function Calculator() {
   const NUMBERS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-  const OPERATORS = ["+", "-", "×", "÷"];
+  const OPERATORS = ["+", "-", "*", "/"];
   const MAX_DIGITS = 9;
 
   let displayValue = "";
@@ -25,7 +25,7 @@ export default function Calculator() {
   function convertToNumber(string) {
     return !isNaN(string) ? +string : null;
   }
-  this.updateScreen = function () {
+  this.getDisplayValue = function () {
     const num = parseFloat(displayValue);
     if (!isNaN(num)) {
       if (num % 1 !== 0) {
@@ -77,9 +77,9 @@ export default function Calculator() {
         return num1 + num2;
       case "-":
         return num1 - num2;
-      case "×":
+      case "*":
         return num1 * num2;
-      case "÷":
+      case "/":
         return num1 / num2;
     }
   }
@@ -143,29 +143,4 @@ export default function Calculator() {
       }
     }
   };
-
-  // Event listener for keyboard input
-  window.addEventListener("keydown", (event) => {
-    const key = event.key;
-
-    if (!isNaN(key) || key === ".") {
-      if (displayValue.length >= MAX_DIGITS && !waitingForSecondOperand) return;
-      numberButton(key);
-    } else if (OPERATORS.includes(key)) {
-      handleOperator(key);
-    } else {
-      switch (key) {
-        case "Backspace":
-          backspace();
-          break;
-        case "Enter":
-          calculate();
-          break;
-        case "Escape":
-          reset();
-          break;
-        // Add additional cases for other special keys if needed
-      }
-    }
-  });
 }
