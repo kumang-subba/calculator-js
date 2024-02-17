@@ -7,9 +7,11 @@ export default function Calculator() {
   let storedOperator = null;
   let waitingForSecondOperand = false;
   let firstNumber = undefined;
+
   function isDecimal() {
     return displayValue.includes(".");
   }
+
   function numberButton(numberString) {
     if (!displayValue) return (displayValue = numberString);
     if (waitingForSecondOperand) {
@@ -19,9 +21,11 @@ export default function Calculator() {
     }
     displayValue += numberString;
   }
+
   function convertToNumber(string) {
     return !isNaN(string) ? +string : null;
   }
+
   this.updateScreen = function () {
     const num = parseFloat(displayValue);
     if (!isNaN(num)) {
@@ -39,12 +43,14 @@ export default function Calculator() {
     displayValue = displayValue.toString();
     return displayValue;
   };
+
   function reset() {
     displayValue = "";
     storedOperator = null;
     waitingForSecondOperand = false;
     firstNumber = undefined;
   }
+
   function handleOperator(newOperator) {
     if (!displayValue && !firstNumber) {
       if (newOperator === "-") displayValue += newOperator;
@@ -64,6 +70,7 @@ export default function Calculator() {
     waitingForSecondOperand = true;
     firstNumber = displayValue;
   }
+
   function performCalculation(num1, num2, operator) {
     num1 = convertToNumber(num1);
     num2 = convertToNumber(num2);
@@ -78,9 +85,11 @@ export default function Calculator() {
         return num1 / num2;
     }
   }
+
   function backspace() {
     displayValue = displayValue.slice(0, -1);
   }
+
   function handleDecimal() {
     if (!isDecimal()) {
       if (!displayValue || waitingForSecondOperand) {
@@ -90,6 +99,7 @@ export default function Calculator() {
       }
     }
   }
+
   function calculate() {
     if (!displayValue || !firstNumber || !storedOperator) {
       return;
@@ -104,6 +114,7 @@ export default function Calculator() {
     );
     storedOperator = null;
   }
+
   function buttonFunctions(button) {
     switch (button) {
       case "C":
@@ -120,6 +131,7 @@ export default function Calculator() {
         break;
     }
   }
+
   this.handleButtons = function (button) {
     if (NUMBERS.includes(button)) {
       if (displayValue.length >= MAX_DIGITS && !waitingForSecondOperand) return;
@@ -132,4 +144,29 @@ export default function Calculator() {
       }
     }
   };
+
+  // Event listener for keyboard input
+  window.addEventListener("keydown", (event) => {
+    const key = event.key;
+
+    if (!isNaN(key) || key === ".") {
+      if (displayValue.length >= MAX_DIGITS && !waitingForSecondOperand) return;
+      numberButton(key);
+    } else if (OPERATORS.includes(key)) {
+      handleOperator(key);
+    } else {
+      switch (key) {
+        case "Backspace":
+          backspace();
+          break;
+        case "Enter":
+          calculate();
+          break;
+        case "Escape":
+          reset();
+          break;
+        // Add additional cases for other special keys if needed
+      }
+    }
+  });
 }
